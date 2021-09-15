@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/19e7be1c-9922-490b-a684-7ad8237c733d/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/jsramverk-editor-arba20",
+    "appService.deploySubpath": "."
+}
