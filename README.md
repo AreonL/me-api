@@ -1,15 +1,15 @@
-### Hello there!
+# Hello there!
 This is Me-Api for Jsramverk course
 
 ## Usages
 
-# npm start
+### npm start
 starts the localhost on port 4000
 
-# npm run setup
+### npm run setup
 resets the database
 
-# npm run search
+### npm run search
 returns all the data in documents database
 
 ## Routes
