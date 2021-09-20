@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/AreonL/mvc-proj.svg?branch=main)](https://app.travis-ci.com/AreonL/mvc-proj)
+
 # Hello there!
 This is Me-Api for Jsramverk course
 
