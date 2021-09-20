@@ -21,11 +21,11 @@ const database = require('../db/database.js');
 // };
 // const limit2 = 3;
 
-const criteria2 = {}
+const criteria2 = {};
 
 const projection2 = {
     name: 1
-}
+};
 const limit2 = 0;
 
 
