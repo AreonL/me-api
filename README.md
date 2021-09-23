@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/AreonL/mvc-proj.svg?branch=main)](https://app.travis-ci.com/AreonL/mvc-proj)
+[![Build Status](https://app.travis-ci.com/AreonL/me-api.svg?branch=master)](https://app.travis-ci.com/AreonL/me-api)
 
 # Hello there!
 This is Me-Api for Jsramverk course
