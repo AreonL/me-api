@@ -84,7 +84,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/create')
+                .post('/document/create')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -115,7 +115,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/create')
+                .post('/document/create')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(401);
@@ -136,7 +136,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/create')
+                .post('/document/create')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(401);
@@ -183,7 +183,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/create')
+                .post('/document/create')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(201);
@@ -230,7 +230,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/update')
+                .post('/document/update')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(401);
@@ -251,7 +251,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/update')
+                .post('/document/update')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(401);
@@ -272,7 +272,7 @@ describe('GET', () => {
             };
 
             chai.request(server)
-                .post('/update')
+                .post('/document/update')
                 .send(data)
                 .end((err, res) => {
                     res.should.have.status(201);

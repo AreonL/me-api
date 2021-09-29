@@ -40,18 +40,19 @@ io.sockets.on('connection', (socket) => {
     let throttleTimer;
 
     socket.on("message", (data=false) => {
-        if (!data._id) return;
+        if (!data._id) {return;}
         socket.to(data._id).emit("message", data);
     });
 
     socket.on("message", (data=false) => {
-        if (!data._id) return;
+        if (!data._id) {return;}
         clearTimeout(throttleTimer);
         throttleTimer = setTimeout(async function() {
             const filter = { _id: ObjectId(data["_id"]) };
             const updateDocument = {
                 text: data.html
             };
+
             await addToCollection(filter, updateDocument);
 
             async function addToCollection(filter, updateDocument) {
@@ -64,7 +65,7 @@ io.sockets.on('connection', (socket) => {
             console.log("Sending", data.html);
             io.emit("new_text", data.html);
         }, 2000);
-    })
+    });
 
     socket.on('leave', function(room) {
         socket.leave(room);
