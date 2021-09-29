@@ -1,14 +1,14 @@
 [
     {
         "name": "Editor",
-        "text": "Skriv något.."
+        "text": "<p>Skriv något..</p>"
     },
     {
         "name": "Areon",
         "text": "<h1>Jsramverk</h1>"
     },{
         "name": "Emil",
-        "text": "<p>Jobba på!</p><br><p>Hårt som tusan måste man jobba!</p><br><p>Andreas kan få jobba lite hårdare i python-chatten med...</p>"
+        "text": "<p>Jobba på!</p><p><br></p><p>Hårt som tusan måste man jobba!</p><p><br></p><p>Andreas kan få jobba lite hårdare i python-chatten med...</p>"
     },
     {
         "name": "Andreas",

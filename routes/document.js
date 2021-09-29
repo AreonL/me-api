@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const database = require('../db/database');
+const data = require('../models/data')
 
 router.get('/', async function(req, res) {
-    const db = await database.getDb();
+    data.getAllData(req, res);
+});
 
-    const data = {
-        data: await db.collection.find({}).toArray()
-    };
+router.post('/create', (req, res) => {
+    data.createNewData(req, res);
+});
 
-    await db.client.close();
-
-    return res.status(200).json(data);
+router.post('/update', (req, res) => {
+    data.updateData(req, res);
 });
 
 module.exports = router;

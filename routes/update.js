@@ -4,8 +4,8 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', (req, res) => {
+    console.log(req.body, "here");
     const docs = req.body;
-
     if (!docs.text || !docs._id) {
         return res.status(401).json({
             errors: {
@@ -22,7 +22,12 @@ router.post('/', (req, res) => {
         text: docs.text
     };
 
-    addToCollection(filter, updateDocument);
+    // addToCollection(filter, updateDocument);
+    return res.status(201).json({
+        data: {
+            msg: "Got a POST request"
+        }
+    });
 
     async function addToCollection(filter, updateDocument) {
         const db = await database.getDb();

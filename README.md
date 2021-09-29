@@ -19,10 +19,12 @@ returns all the data in documents database
 
 "/document" är en GET metod för att få all information i databasen
 
-"/create" skapar en document ny med POST metod
+"/document/create" skapar en document ny med POST metod
 body application/json
 text och name måste vara med
+- fix so it only go to post?
 
-"/update" updaterar en document i databasen med POST metoden
+"/document/update" updaterar en document i databasen med POST metoden
 body application/json
 text och _id måste vara med
+- fix so it only go to put?
