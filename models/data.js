@@ -33,11 +33,6 @@ const data = {
         };
 
         updateOneInCollection(filter, updateDocument);
-        return res.status(201).json({
-            data: {
-                msg: "Got a POST request"
-            }
-        });
 
         async function updateOneInCollection(filter, updateDocument) {
             const db = await database.getDb();
