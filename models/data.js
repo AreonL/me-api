@@ -5,18 +5,18 @@ const data = {
     getAllData: async function (req, res) {
         const db = await database.getDb();
 
-        console.log(req.email, "getAllData");
+        // console.log(req.email, "getAllData");
 
         // let selfDoc = await db.collection.find({email: req.email}).toArray()
 
-        let selfDoc = await db.collection.find({email: req.email}).toArray()
-        let otherDoc = await db.collection.find({ "docs.allowed_users": req.email }).toArray()
+        let selfDoc = await db.collection.find({email: req.email}).toArray();
+        let otherDoc = await db.collection.find({ "docs.allowed_users": req.email }).toArray();
 
         // console.log(selfDoc[0]["docs"], otherDoc);
-        selfDoc = selfDoc[0]["docs"]
-        otherDoc = otherDoc.map(e => e.docs.filter(e => e.allowed_users.includes(req.email))[0])
+        selfDoc = selfDoc[0]["docs"];
+        otherDoc = otherDoc.map(e => e.docs.filter(e => e.allowed_users.includes(req.email))[0]);
         // console.log(selfDoc, otherDoc);
-        const theDocs = selfDoc.concat(otherDoc)
+        const theDocs = selfDoc.concat(otherDoc);
         // console.log(theDocs);
         const data = {
             data: theDocs
@@ -43,7 +43,7 @@ const data = {
             });
         }
 
-        console.log("This is the text to save", docs.text, docs._id);
+        // console.log("This is the text to save", docs.text, docs._id);
         const filter = { "docs._id": ObjectId(docs["_id"]) };
         const updateDocument = {
             text: docs.text
@@ -70,12 +70,12 @@ const data = {
         }
     },
     createNewData: async function (req, res) {
-        console.log(req.email);
+        // console.log(req.email);
         const docs = {
             name: req.body.name,
             text: req.body.text,
             email: req.email
-        }
+        };
 
         if (!docs.name || !docs.text) {
             return res.status(401).json({
@@ -88,14 +88,15 @@ const data = {
             });
         }
 
-        console.log(docs, "Här är docs data");
+        // console.log(docs, "Här är docs data");
 
         addToCollection(docs);
 
         async function addToCollection(element) {
             const db = await database.getDb();
-            console.log("Hejsan inne i addtocollection");
-            const id = new ObjectId()
+            // console.log("Hejsan inne i addtocollection");
+            const id = new ObjectId();
+
             await db.collection.updateOne(
                 { email: element.email },
                 { $push: {
@@ -124,6 +125,7 @@ const data = {
         console.log("ALLOWUSER NOW");
         // const email = req.email
         const user = req.body;
+
         console.log(user, "Here for AllowUser");
 
         if (!user.addEmail || !user.docId) {
@@ -140,19 +142,20 @@ const data = {
         let sendData = {
             addEmail: user.addEmail,
             _id: user.docId
-        }
+        };
 
-        addToAllowed(sendData)
+        addToAllowed(sendData);
 
 
         async function addToAllowed(data) {
             const db = await database.getDb();
+
             console.log(ObjectId(data["_id"]));
 
-            let selfDoc = await db.collection.findOne({ "docs._id": ObjectId(data["_id"])})
+            let selfDoc = await db.collection.findOne({ "docs._id": ObjectId(data["_id"])});
             let activeDoc = await selfDoc["docs"]
                 .filter(e => String(e._id) == ObjectId(data["_id"]))
-                .filter(e => e.allowed_users.includes(data["addEmail"]))
+                .filter(e => e.allowed_users.includes(data["addEmail"]));
 
             if (activeDoc.length) {
                 console.log(activeDoc[0]["allowed_users"], "Already in here");
@@ -177,7 +180,8 @@ const data = {
 
             // console.log(selfDoc, "This is now array");
 
-            // await db.collection.findOne({email: email}).updateData({ docs: { allowed_users: user.addEmail } });
+            // await db.collection.findOne({email: email})
+            //     .updateData({ docs: { allowed_users: user.addEmail } });
 
             await db.client.close();
         }

@@ -1,15 +1,7 @@
 [
     {
-        "email": "test3@test.se",
-        "password": "bleh3",
-        "docs": [
-            {
-                "name": "Emil",
-                "text": "<p>Detta är inte python...</p>",
-                "allowed_users": [
-                    "test@test.se"
-                ]
-            }
-        ]
+        "email": "t",
+        "password": "$2a$10$.zgOzG2s8lzoG9sJxmWo/.79xpbfzFXz.QqmQ9QGFSn1Vfq/M/Fn.",
+        "docs": []
     }
 ]

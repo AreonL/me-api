@@ -1,4 +1,4 @@
-const database = require('../db/database')
+const database = require('../db/database');
 const config = require('../config/config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -13,7 +13,7 @@ const secret = config.JWT_SECRET;
 
 const auth = {
     login: async function (req, res) {
-        console.log("login");
+        // console.log("login");
         const email = req.body.email;
         const password = req.body.password;
 
@@ -30,7 +30,7 @@ const auth = {
 
         const filter = {
             email: email
-        }
+        };
 
         let db;
 
@@ -39,14 +39,13 @@ const auth = {
 
             const user = await db.collection.findOne(filter);
 
-
+            // console.log(user);
             if (user) {
-                // console.log(user);
                 return auth.comparePassword(
                     res,
                     password,
                     user
-                )
+                );
             }
 
 
@@ -146,7 +145,7 @@ const auth = {
         });
     },
     comparePassword: async function (res, password, user) {
-        console.log("comparePassword");
+        // console.log("comparePassword");
         // console.log(password, user);
         // const token = jwt.sign(payload, secret, { expiresIn: '1h'});
         bcrypt.compare(password, user.password, (err, result) => {
@@ -186,7 +185,7 @@ const auth = {
         });
     },
     checkToken: async function (req, res, next) {
-        console.log("checkToken");
+        // console.log("checkToken");
         let token = req.headers['x-access-token'];
 
         if (token) {
@@ -206,7 +205,7 @@ const auth = {
                 req.email = decoded.email;
 
                 return next();
-            })
+            });
         } else {
             return res.status(401).json({
                 errors: {

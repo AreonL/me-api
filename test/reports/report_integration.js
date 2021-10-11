@@ -4,6 +4,12 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { describe, before } = require('mocha');
 const server = require('../../app.js');
+const fs = require("fs");
+const path = require("path");
+const docs = JSON.parse(fs.readFileSync(
+    path.resolve(__dirname, "../../src/setup3.json"),
+    "utf8"
+));
 
 chai.should();
 
@@ -14,12 +20,13 @@ chai.use(chaiHttp);
 
 let _id = "";
 let text = "";
+let token = '';
 
 describe('GET', () => {
-    before(async () => {
+    before(async function() {
         const db = await database.getDb();
 
-        db.db.listCollections(
+        await db.db.listCollections(
             { name: collectionName }
         )
             .next()
@@ -27,6 +34,7 @@ describe('GET', () => {
                 if (info) {
                     await db.collection.drop();
                 }
+                await db.collection.insertMany(docs);
             })
             .catch(function(err) {
                 console.error(err);
@@ -35,6 +43,42 @@ describe('GET', () => {
                 await db.client.close();
             });
     });
+    it("return token", (done) => {
+        chai.request(server)
+            .post('/auth/login')
+            .send({email: 't', password: 't'})
+            .end((err, res) => {
+                // console.log(res.body.data.token);
+                token = res.body.data.token;
+                res.should.have.status(200);
+                // res.text.should.be.an("string");
+                // res.body.data.token.length.should.be.above(0);
+                // console.log(res.text);
+                // res.should
+
+                done();
+            });
+    });
+    // beforeEach(function(done) {
+    //     done();
+    // });
+
+    // beforeEach((done) => {
+    //     chai.request(server)
+    //         .post('/auth/login')
+    //         .send({email: 't', password: 't'})
+    //         .end((err, res) => {
+    //             console.log(res.body.data.token);
+    //             token = res.body.data.token;
+    //             // res.should.have.status(200);
+    //             // res.text.should.be.an("string");
+    //             res.body.data.token.length.should.be.above(0);
+    //             // console.log(res.text);
+    //             // res.should
+
+    //             done();
+    //         });
+    // })
 
     describe('GET /', () => {
         it("index should return 200 and some text", (done) => {
@@ -54,6 +98,7 @@ describe('GET', () => {
         it("document should return 200 and nothing in data", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -68,6 +113,7 @@ describe('GET', () => {
         it("should return 200 and no data", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -86,6 +132,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/create')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.data.should.be.an('object');
@@ -99,6 +146,7 @@ describe('GET', () => {
         it("should return 200 and data equal too 1", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -117,6 +165,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/create')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(401);
                     res.body.should.be.an('object');
@@ -138,6 +187,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/create')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(401);
                     res.body.should.be.an('object');
@@ -153,6 +203,7 @@ describe('GET', () => {
         it("should return 200 and data equal too 1", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -167,6 +218,7 @@ describe('GET', () => {
         it("should return 200 and data equal too 1", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -185,6 +237,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/create')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.data.should.be.an('object');
@@ -198,6 +251,7 @@ describe('GET', () => {
         it("should return 200 and data equal too 2", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -212,6 +266,7 @@ describe('GET', () => {
         it("should return 200 and data equal too 2", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");
@@ -232,6 +287,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/update')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(401);
                     res.body.should.be.an('object');
@@ -253,6 +309,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/update')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(401);
                     res.body.should.be.an('object');
@@ -274,6 +331,7 @@ describe('GET', () => {
             chai.request(server)
                 .post('/document/update')
                 .send(data)
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.an('object');
@@ -286,6 +344,7 @@ describe('GET', () => {
         it("should return 200 and compare new vs old data", (done) => {
             chai.request(server)
                 .get('/document')
+                .set("x-access-token", token)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.an("object");

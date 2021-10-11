@@ -4,7 +4,7 @@ const auth = require('../models/auth');
 
 router.post('/login', (req, res) => auth.login(req, res));
 
-router.post('/register',(req, res) => auth.register(req, res));
+router.post('/register', (req, res) => auth.register(req, res));
 
 // router.get('/',(req, res) => {
 //     auth.checkToken(req, res, next);
