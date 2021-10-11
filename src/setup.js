@@ -3,7 +3,7 @@ const database = require('../db/database.js');
 const fs = require("fs");
 const path = require("path");
 const docs = JSON.parse(fs.readFileSync(
-    path.resolve(__dirname, "setup.json"),
+    path.resolve(__dirname, "setup3.json"),
     "utf8"
 ));
 
@@ -15,6 +15,8 @@ async function resetCollection(doc) {
 
     await db.collection.deleteMany();
     await db.collection.insertMany(doc);
+
+    console.log(doc);
 
     await db.client.close();
 }

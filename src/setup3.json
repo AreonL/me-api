@@ -1,0 +1,15 @@
+[
+    {
+        "email": "test3@test.se",
+        "password": "bleh3",
+        "docs": [
+            {
+                "name": "Emil",
+                "text": "<p>Detta är inte python...</p>",
+                "allowed_users": [
+                    "test@test.se"
+                ]
+            }
+        ]
+    }
+]

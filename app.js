@@ -7,11 +7,14 @@ const ObjectId = require('mongodb').ObjectId;
 const database = require('./db/database');
 
 const app = express();
+
+
 const server = require("http").createServer(app);
 
+
+// origin: "http://localhost:3000",
 const io = require("socket.io")(server, {
     cors: {
-        // origin: "https://localhost:3000",
         origin: "https://www.student.bth.se",
         methods: ["GET", "POST"]
     }
@@ -21,14 +24,20 @@ const port = process.env.PORT || 4000;
 
 const index = require('./routes/index');
 const document = require('./routes/document');
+const auth = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 app.use(cors());
+// app.options('*', cors());
+
+// app.disable('x-powered-by');
 
 app.use('/', index);
 app.use('/document', document);
+app.use('/auth', auth);
 
 io.sockets.on('connection', (socket) => {
     console.log("a user connected");
@@ -48,7 +57,7 @@ io.sockets.on('connection', (socket) => {
         if (!data._id) {return;}
         clearTimeout(throttleTimer);
         throttleTimer = setTimeout(async function() {
-            const filter = { _id: ObjectId(data["_id"]) };
+            const filter = { "docs._id": ObjectId(data["_id"]) };
             const updateDocument = {
                 text: data.html
             };
@@ -58,7 +67,11 @@ io.sockets.on('connection', (socket) => {
             async function addToCollection(filter, updateDocument) {
                 const db = await database.getDb();
 
-                await db.collection.updateOne(filter, {$set: updateDocument});
+                await db.collection.updateOne(filter,
+                    { $set: {
+                        "docs.$.text": updateDocument.text
+                    }}
+                );
 
                 await db.client.close();
             }

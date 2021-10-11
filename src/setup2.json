@@ -1,0 +1,47 @@
+[
+    {
+        "email": "test@test.se",
+        "password": "bleh",
+        "docs": [
+            {
+                "name": "Areon",
+                "text": "<h1>Jsramverk</h1>",
+                "allowed_users": [
+                    "test2@test.se",
+                    "test3@test.se"
+                ]
+            },
+            {
+                "name": "Andra jag",
+                "text": "<h1>Trevligt</h1>",
+                "allowed_users": []
+            }
+        ]
+    },
+    {
+        "email": "test2@test.se",
+        "password": "bleh2",
+        "docs": [
+            {
+                "name": "Andreas",
+                "text": "<p>Detta är inte python...</p>",
+                "allowed_users": [
+                    "test@test.se"
+                ]
+            }
+        ]
+    },
+    {
+        "email": "test3@test.se",
+        "password": "bleh3",
+        "docs": [
+            {
+                "name": "Emil",
+                "text": "<p>Detta är inte python...</p>",
+                "allowed_users": [
+                    "test@test.se"
+                ]
+            }
+        ]
+    }
+]

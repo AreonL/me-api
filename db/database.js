@@ -1,5 +1,5 @@
 const mongo = require("mongodb").MongoClient;
-const config = require('../config.json');
+const config = require('../config/config.json');
 const collectionName = "docs";
 
 const database = {
