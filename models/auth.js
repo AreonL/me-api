@@ -1,5 +1,5 @@
 const database = require('../db/database');
-const config = require('../config/config.json');
+const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
