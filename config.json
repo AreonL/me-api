@@ -1,4 +1,5 @@
 {
     "username": "texteditor",
-    "password": "dbwebb"
+    "password": "dbwebb",
+    "JWT_SECRET": "nb26SgpgWJhEdJ7oaXS0Xn9uHSNgVIFXTGyltqPFpJMxVD4vrYHm0nMqRkw4Pfm4"
 }
