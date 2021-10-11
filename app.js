@@ -15,7 +15,7 @@ const server = require("http").createServer(app);
 // origin: "http://localhost:3000",
 const io = require("socket.io")(server, {
     cors: {
-        // origin: "https://www.student.bth.se",
+        origin: "https://www.student.bth.se",
         methods: ["GET", "POST"]
     }
 });
