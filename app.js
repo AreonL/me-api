@@ -3,6 +3,18 @@ const cors = require('cors');
 // const morgan = require('morgan');
 const express = require('express');
 
+
+const visual = true;
+const { graphqlHTTP } = require('express-graphql');
+const {
+    GraphQLSchema, GraphQLObjectType, GraphQLString
+} = require("graphql");
+
+const RootQueryType = require("./graphql/root.js");
+
+// const { BookType, AuthorType } = require("./graphql/doc")
+
+
 const ObjectId = require('mongodb').ObjectId;
 const database = require('./db/database');
 
@@ -35,9 +47,29 @@ app.use(cors());
 
 // app.disable('x-powered-by');
 
+// const schema = new GraphQLSchema({
+//     query: new GraphQLObjectType({
+//         name: 'HelloWorld',
+//         fields: () => ({
+//             message: {
+//                 type: GraphQLString,
+//                 resolve: () => 'Hello World'
+//             }
+//         })
+//     })
+// })
+
+const schema = new GraphQLSchema({
+    query: RootQueryType
+})
+
 app.use('/', index);
 app.use('/document', document);
 app.use('/auth', auth);
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    graphiql: visual
+}));
 
 io.sockets.on('connection', (socket) => {
     console.log("a user connected");

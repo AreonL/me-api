@@ -1,8 +1,38 @@
 const database = require('../db/database');
 const ObjectId = require('mongodb').ObjectId;
 
+
+async function sortDataOneUser(arg_email) {
+    console.log(arg_email, "in database");
+    const db = await database.getDb();
+
+    let selfDoc = await db.collection.find({email: arg_email}).toArray();
+    let otherDoc = await db.collection.find({ "docs.allowed_users": arg_email }).toArray();
+    // console.log(selfDoc);
+
+    selfDoc = selfDoc[0]["docs"];
+    otherDoc = otherDoc.map(e => e.docs.filter(e => e.allowed_users.includes(arg_email))[0]);
+    // console.log(selfDoc, otherDoc);
+    const theDocs = selfDoc.concat(otherDoc);
+
+
+    await db.client.close();
+
+    return theDocs;
+}
+
+
+
 const data = {
+    getAllGQL: async function (arg_email) {
+        let result = await sortDataOneUser(arg_email);
+
+        console.log(result);
+
+        return result;
+    },
     getAllData: async function (req, res) {
+        console.log(req, "Here i am");
         const db = await database.getDb();
 
         // console.log(req.email, "getAllData");
