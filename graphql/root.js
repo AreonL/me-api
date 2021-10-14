@@ -1,8 +1,8 @@
-const { GraphQLObjectType, GraphQLInt, GraphQLList, GraphQLString } = require("graphql");
+const { GraphQLObjectType, GraphQLList, GraphQLString } = require("graphql");
 // const AuthorType = require('./author.js')
-const { BookType, AuthorType, DocType, UserType } = require('./doc.js')
+const { DocType } = require('./doc.js');
 // const Data = require('../data')
-const data = require('../models/data')
+const data = require('../models/data');
 
 
 
@@ -48,6 +48,6 @@ const RootQueryType = new GraphQLObjectType({
         //     resolve: () => Data.authors
         // },
     })
-})
+});
 
 module.exports = RootQueryType;

@@ -1,4 +1,10 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLString, GraphQLList } = require("graphql");
+const {
+    GraphQLObjectType,
+    GraphQLNonNull,
+    GraphQLInt,
+    GraphQLString,
+    GraphQLList
+} = require("graphql");
 // const AuthorType = require("./author");
 const Data = require('../data');
 // const data = require("../models/data");
@@ -13,11 +19,11 @@ const BookType = new GraphQLObjectType({
         author: {
             type: AuthorType,
             resolve: (book) => {
-                return Data.authors.find(author => author.id === book.authorId)
+                return Data.authors.find(author => author.id === book.authorId);
             }
         }
     })
-})
+});
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
@@ -28,11 +34,11 @@ const AuthorType = new GraphQLObjectType({
         books: {
             type: new GraphQLList(BookType),
             resolve: (author) => {
-                return Data.books.filter(book => book.authorId === author.id)
+                return Data.books.filter(book => book.authorId === author.id);
             }
         }
     })
-})
+});
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -52,7 +58,7 @@ const UserType = new GraphQLObjectType({
             // }
         }
     })
-})
+});
 // e.docs.filter((el, i) => el._id === doc.docs[i]._id)
 // doc.docs[i]._id
 // otherDoc = otherDoc.map(e => e.docs.filter(e => e.allowed_users.includes(req.email))[0]);
@@ -65,7 +71,7 @@ const DocType = new GraphQLObjectType({
         name: { type: GraphQLNonNull(GraphQLString) },
         text: { type: GraphQLNonNull(GraphQLString) }
     })
-})
+});
 
 // const AllowedType = new GraphQLObjectType({
 //     name: 'Allowed',

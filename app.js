@@ -7,7 +7,7 @@ const express = require('express');
 const visual = true;
 const { graphqlHTTP } = require('express-graphql');
 const {
-    GraphQLSchema, GraphQLObjectType, GraphQLString
+    GraphQLSchema
 } = require("graphql");
 
 const RootQueryType = require("./graphql/root.js");
@@ -61,7 +61,7 @@ app.use(cors());
 
 const schema = new GraphQLSchema({
     query: RootQueryType
-})
+});
 
 app.use('/', index);
 app.use('/document', document);
