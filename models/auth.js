@@ -1,11 +1,11 @@
 const database = require('../db/database');
-const config = require('../config.json');
+// const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 // const payload = { email: "test@test.se" };
-const secret = config.JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
 // Sendgrid | mail system
 const sendGrid = require('@sendgrid/mail');
