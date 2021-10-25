@@ -3,9 +3,11 @@ const database = require('../db/database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
+require('dotenv').config();
 
 // const payload = { email: "test@test.se" };
 const secret = process.env.JWT_SECRET;
+console.log(secret);
 
 // Sendgrid | mail system
 const sendGrid = require('@sendgrid/mail');
