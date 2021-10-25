@@ -9,9 +9,9 @@ const secret = process.env.JWT_SECRET;
 
 // Sendgrid | mail system
 const sendGrid = require('@sendgrid/mail');
-const api = require('../config/config.json');
+const api = process.env.API_KEY
 
-sendGrid.setApiKey(api.API_KEY);
+sendGrid.setApiKey(api);
 
 
 const auth = {
