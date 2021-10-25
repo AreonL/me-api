@@ -2,6 +2,13 @@
     {
         "email": "t",
         "password": "$2a$10$.zgOzG2s8lzoG9sJxmWo/.79xpbfzFXz.QqmQ9QGFSn1Vfq/M/Fn.",
-        "docs": []
+        "docs": [{
+            "_id": "",
+            "name": "new doc",
+            "text": "<p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p><p>Add some boiler text</p>",
+            "allowed_users": [],
+            "comments": []
+        }],
+        "code": []
     }
 ]

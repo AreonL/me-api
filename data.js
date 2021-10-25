@@ -56,4 +56,51 @@ const users = [
     }
 ];
 
-module.exports = { authors, books, users };
+const delayed = [
+    {
+        "ActivityId": "1500adde-0a5d-1766-08d8-d85aaae62018",
+        "ActivityType": "Avgang",
+        "AdvertisedTimeAtLocation": "2021-03-11T13:03:00.000+01:00",
+        "AdvertisedTrainIdent": "735",
+        "Canceled": false,
+        "EstimatedTimeAtLocation": "2021-03-11T13:15:00.000+01:00",
+        "FromLocation": [
+            {
+                "LocationName": "Hpbg",
+                "Priority": 1,
+                "Order": 0
+            }
+        ],
+        "ToLocation": [
+            {
+                "LocationName": "Cst",
+                "Priority": 1,
+                "Order": 0
+            }
+        ]
+    },
+    {
+        "ActivityId": "1500adde-0a5d-1766-08d8-d85a927d1a39",
+        "ActivityType": "Avgang",
+        "AdvertisedTimeAtLocation": "2021-03-11T13:07:00.000+01:00",
+        "AdvertisedTrainIdent": "233",
+        "Canceled": true,
+        "EstimatedTimeAtLocation": "2021-03-11T13:44:00.000+01:00",
+        "FromLocation": [
+            {
+                "LocationName": "Cst",
+                "Priority": 1,
+                "Order": 0
+            }
+        ],
+        "ToLocation": [
+            {
+                "LocationName": "Nr",
+                "Priority": 1,
+                "Order": 0
+            }
+        ]
+    },
+];
+
+module.exports = { delayed, authors, books, users };

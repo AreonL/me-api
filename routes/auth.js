@@ -6,8 +6,9 @@ router.post('/login', (req, res) => auth.login(req, res));
 
 router.post('/register', (req, res) => auth.register(req, res));
 
-// router.get('/',(req, res) => {
-//     auth.checkToken(req, res, next);
-// });
+router.post('/invite',
+    (req, res, next) => auth.checkToken(req, res, next),
+    (req, res) => auth.sendMail(req, res)
+);
 
 module.exports = router;

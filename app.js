@@ -3,31 +3,31 @@ const cors = require('cors');
 // const morgan = require('morgan');
 const express = require('express');
 
-
-const visual = true;
+const visual = process.env.NODE_ENV === 'test';
 const { graphqlHTTP } = require('express-graphql');
 const {
     GraphQLSchema
 } = require("graphql");
 
 const RootQueryType = require("./graphql/root.js");
-
 // const { BookType, AuthorType } = require("./graphql/doc")
-
 
 const ObjectId = require('mongodb').ObjectId;
 const database = require('./db/database');
 
 const app = express();
 
-
 const server = require("http").createServer(app);
 
+let URL = "https://www.student.bth.se";
 
-// origin: "http://localhost:3000",
+if (process.env.NODE_ENV === 'test') {
+    URL = "http://localhost:3000";
+}
+
 const io = require("socket.io")(server, {
     cors: {
-        origin: "https://www.student.bth.se",
+        origin: URL,
         methods: ["GET", "POST"]
     }
 });
@@ -36,6 +36,7 @@ const port = process.env.PORT || 4000;
 
 const index = require('./routes/index');
 const document = require('./routes/document');
+const code = require('./routes/code');
 const auth = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -65,6 +66,7 @@ const schema = new GraphQLSchema({
 
 app.use('/', index);
 app.use('/document', document);
+app.use('/code', code);
 app.use('/auth', auth);
 app.use('/graphql', graphqlHTTP({
     schema: schema,

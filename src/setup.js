@@ -2,10 +2,13 @@ const database = require('../db/database.js');
 
 const fs = require("fs");
 const path = require("path");
+const ObjectId = require('mongodb').ObjectId;
 const docs = JSON.parse(fs.readFileSync(
     path.resolve(__dirname, "setup3.json"),
     "utf8"
 ));
+console.log(docs[0].docs[0]);
+docs[0].docs[0]._id = new ObjectId()
 
 resetCollection(docs)
     .catch(err => console.log(err));
