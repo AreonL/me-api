@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { describe, before } = require('mocha');
+const { describe, before, after } = require('mocha');
 const server = require('../app.js');
 const fs = require("fs");
 const path = require("path");
@@ -21,7 +21,8 @@ chai.use(chaiHttp);
 let id = '';
 let name = 'TestName';
 let text = '<p>TestText</p>';
-let allowed_users = [];
+// let allowed_users = [];
+let allowedUsers = [];
 let token = '';
 let comments = [];
 
@@ -30,7 +31,7 @@ const email = 'test@test.test';
 const password = 'test';
 
 //Comments
-let comment = "TestComment"
+let comment = "TestComment";
 let position = 0;
 let commentID = '';
 
@@ -63,7 +64,7 @@ describe('Routes', () => {
             });
     });
     after(async function() {
-        await server.close()
+        await server.close();
     });
     // it("return token", (done) => {
     //     chai.request(server)
@@ -573,7 +574,7 @@ describe('Routes', () => {
                         doc.text.should.be.equal(text);
                         doc.comments.length.should.be.equals(0);
                         doc.allowed_users.length.should.be.equal(0);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
 
                         // Set id
                         id = doc._id;
@@ -643,7 +644,7 @@ describe('Routes', () => {
                     });
             });
             it("should return 201 | updated doc", (done) => {
-                text = "<p>TestNewText</p>"
+                text = "<p>TestNewText</p>";
                 chai.request(server)
                     .post('/document/update')
                     .set("x-access-token", token)
@@ -680,7 +681,7 @@ describe('Routes', () => {
                         doc.text.should.be.equal(text);
                         doc.comments.length.should.be.equals(0);
                         doc.allowed_users.length.should.be.equal(0);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
 
                         done();
                     });
@@ -764,7 +765,7 @@ describe('Routes', () => {
                         data.message.should.equals("Allowed user to document");
 
                         // Add to allowed_users
-                        allowed_users.push(addEmail);
+                        allowedUsers.push(addEmail);
 
                         done();
                     });
@@ -785,7 +786,7 @@ describe('Routes', () => {
                         doc.text.length.should.be.above(0);
                         doc.text.should.be.equal(text);
                         doc.allowed_users.length.should.be.equal(1);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
 
                         done();
                     });
@@ -826,7 +827,7 @@ describe('Routes', () => {
                         doc.text.length.should.be.above(0);
                         doc.text.should.be.equal(text);
                         doc.allowed_users.length.should.be.equal(1);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
 
                         done();
                     });
@@ -1009,7 +1010,7 @@ describe('Routes', () => {
                         doc.text.length.should.be.above(0);
                         doc.text.should.be.equal(text);
                         doc.allowed_users.length.should.be.above(0);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
                         doc.comments.length.should.be.equal(1);
 
                         doc.comments[0].should.contain({text: comment});
@@ -1116,7 +1117,7 @@ describe('Routes', () => {
                         doc.text.length.should.be.above(0);
                         doc.text.should.be.equal(text);
                         doc.allowed_users.length.should.be.above(0);
-                        doc.allowed_users.should.be.eql(allowed_users);
+                        doc.allowed_users.should.be.eql(allowedUsers);
                         doc.comments.length.should.be.equal(0);
 
                         done();
@@ -1272,7 +1273,7 @@ describe('Routes', () => {
                         data.message.should.equals("Code created");
 
                         // Add code id
-                        codeId = data.id
+                        codeId = data.id;
 
                         done();
                     });
@@ -1358,7 +1359,6 @@ describe('Routes', () => {
                     });
             });
             it("should return 201 | update code", (done) => {
-                codeText = 'console.log("New Hello World!");'
                 chai.request(server)
                     .put('/code')
                     .set("x-access-token", token)
@@ -1403,54 +1403,44 @@ describe('Routes', () => {
         describe('Data', () => {
             it('should return 200 error | no email no data', (done) => {
                 chai.request(server)
-                .post('/graphql')
-                .send({ query: '{ docs (email: "") { name text _id } }' })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    let errors = res.body.errors[0];
-                    let data = res.body.data;
+                    .post('/graphql')
+                    .send({ query: '{ docs (email: "") { name text _id } }' })
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        let errors = res.body.errors[0];
+                        let data = res.body.data;
 
-                    errors.should.be.an("object");
-                    Object.keys(errors).length.should.be.above(0);
-                    errors.message.should.be.an("string");
-                    errors.message.length.should.be.above(0);
-                    errors.message.should.include("did not find one");
+                        errors.should.be.an("object");
+                        Object.keys(errors).length.should.be.above(0);
+                        errors.message.should.be.an("string");
+                        errors.message.length.should.be.above(0);
+                        errors.message.should.include("did not find one");
 
-                    data.should.be.an("object");
-                    Object.keys(data).length.should.be.equal(1);
+                        data.should.be.an("object");
+                        Object.keys(data).length.should.be.equal(1);
 
-                    done();
-                });
+                        done();
+                    });
             });
             it('should return 200 | get data', (done) => {
                 chai.request(server)
-                .post('/graphql')
-                .send({ query: '{ docs (email: "' + email + '") { name text _id } }' })
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.an("object");
-                    Object.keys(res.body.data).length.should.be.above(0);
-                    let doc = res.body.data.docs[0];
+                    .post('/graphql')
+                    .send({ query: '{ docs (email: "' + email + '") { name text _id } }' })
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.an("object");
+                        Object.keys(res.body.data).length.should.be.above(0);
+                        let doc = res.body.data.docs[0];
 
-                    doc._id.length.should.be.above(0);
-                    doc.name.length.should.be.above(0);
-                    doc.name.should.be.equal(name);
-                    doc.text.length.should.be.above(0);
-                    doc.text.should.be.equal(text);
+                        doc._id.length.should.be.above(0);
+                        doc.name.length.should.be.above(0);
+                        doc.name.should.be.equal(name);
+                        doc.text.length.should.be.above(0);
+                        doc.text.should.be.equal(text);
 
-                    done();
-                });
+                        done();
+                    });
             });
         });
-        /*
-            fetch(GRAPH_URL, {
-            method: 'POST',
-            headers: {
-                'x-access-token': props.token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({ query: '{ docs (email: "' + props.email + '") { name text _id } }' })
-        */
     });
 });

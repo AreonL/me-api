@@ -1,24 +1,20 @@
 const database = require('../db/database');
-// const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
+
 require('dotenv').config();
 
-// const payload = { email: "test@test.se" };
 const secret = process.env.JWT_SECRET;
-console.log(secret);
 
 // Sendgrid | mail system
 const sendGrid = require('@sendgrid/mail');
-const api = process.env.API_KEY
+const api = process.env.API_KEY;
 
 sendGrid.setApiKey(api);
 
-
 const auth = {
     login: async function (req, res) {
-        // console.log("login");
         const email = req.body.email;
         const password = req.body.password;
 
@@ -43,7 +39,6 @@ const auth = {
         const user = await db.collection.findOne(filter);
 
         await db.client.close();
-        // console.log(user);
         if (user) {
             return auth.comparePassword(
                 res,
@@ -62,7 +57,6 @@ const auth = {
         });
     },
     register: async function (req, res) {
-        // console.log("register");
         const email = req.body.email;
         const password = req.body.password;
 
@@ -104,7 +98,6 @@ const auth = {
                 let emailIsInDB = await db.collection.findOne({email: email});
 
                 if (emailIsInDB) {
-                    // console.log(emailIsInDB, "Returning, already exsisting");
                     return res.status(401).json({
                         errors: {
                             status: 401,
@@ -114,8 +107,6 @@ const auth = {
                         }
                     });
                 }
-
-                // console.log(email, "Adding new user too db");
 
                 await db.collection.insertOne(updateDoc);
 
@@ -139,9 +130,6 @@ const auth = {
         });
     },
     comparePassword: async function (res, password, user) {
-        // console.log("comparePassword");
-        // console.log(password, user);
-        // const token = jwt.sign(payload, secret, { expiresIn: '1h'});
         bcrypt.compare(password, user.password, (err, result) => {
             if (err) {
                 return res.status(500).json({
@@ -215,7 +203,7 @@ const auth = {
         const fromEmail = req.email;
         const toEmail = req.body.toEmail;
         const docName = req.body.docName;
-        console.log("Here");
+
         if (!toEmail || !fromEmail || !docName) {
             return res.status(401).json({
                 errors: {
@@ -244,7 +232,6 @@ const auth = {
             <br>
             <i>MVH - ${fromEmail}</i>`,
         };
-
 
         if (process.env.NODE_ENV !== 'test') {
             console.log("Actually sending mail");

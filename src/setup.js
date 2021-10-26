@@ -7,8 +7,8 @@ const docs = JSON.parse(fs.readFileSync(
     path.resolve(__dirname, "setup3.json"),
     "utf8"
 ));
-console.log(docs[0].docs[0]);
-docs[0].docs[0]._id = new ObjectId()
+
+docs[0].docs[0]._id = new ObjectId();
 
 resetCollection(docs)
     .catch(err => console.log(err));

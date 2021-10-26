@@ -1,10 +1,7 @@
 const { GraphQLObjectType, GraphQLList, GraphQLString } = require("graphql");
-// const AuthorType = require('./author.js')
 const { DocType, DelayType } = require('./doc.js');
-const Data = require('../data')
+const Data = require('../data');
 const data = require('../models/data');
-
-
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
@@ -24,33 +21,7 @@ const RootQueryType = new GraphQLObjectType({
             type: new GraphQLList(DelayType),
             description: 'List of all delayed',
             resolve: () => Data.delayed
-        },
-        // book: {
-        //     type: BookType,
-        //     description: 'A single book',
-        //     args: {
-        //         id: { type: GraphQLInt }
-        //     },
-        //     resolve: (parent, args) => Data.books.find(book => book.id === args.id)
-        // },
-        // books: {
-        //     type: new GraphQLList(BookType),
-        //     description: 'List of all books',
-        //     resolve: () => Data.books
-        // },
-        // author: {
-        //     type: AuthorType,
-        //     description: 'A single author',
-        //     args: {
-        //         id: { type: GraphQLInt }
-        //     },
-        //     resolve: (parent, args) => Data.authors.find(author => author.id === args.id)
-        // },
-        // authors: {
-        //     type: new GraphQLList(AuthorType),
-        //     description: 'List of all authors',
-        //     resolve: () => Data.authors
-        // },
+        }
     })
 });
 

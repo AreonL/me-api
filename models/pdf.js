@@ -12,7 +12,7 @@ const pdf = {
                     title: "Text not sent",
                     details: "Text missing from body"
                 }
-            })
+            });
         }
 
         const browser = await puppeteer.launch({
@@ -26,7 +26,6 @@ const pdf = {
 
         await browser.close();
 
-        // res.contentType("application/pdf");
         return res.send(pdf2);
     }
 };

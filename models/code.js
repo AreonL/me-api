@@ -1,9 +1,7 @@
 const database = require('../db/database');
 const ObjectId = require('mongodb').ObjectId;
 
-
 async function sortDataOneUser(argEmail) {
-    // console.log(argEmail, "in database");
     const db = await database.getDb();
 
     let selfDoc = await db.collection.find({email: argEmail}).toArray();
@@ -54,8 +52,6 @@ const code = {
     getAllData: async function (req, res) {
         let result = await sortDataOneUser(req.email);
 
-        // console.log(result);
-
         const data = {
             data: result
         };
@@ -63,7 +59,6 @@ const code = {
         return res.status(200).json(data);
     },
     createCode: async function (req, res) {
-        // console.log("Creating data");
         const email = req.email;
         const name = req.body.name;
         const code = req.body.code;
@@ -91,7 +86,6 @@ const code = {
         return res.status(201).json(data);
     },
     updateCode: async function (req, res) {
-        // console.log("Updating data");
         const id = req.body.id;
         const code = req.body.code;
 
@@ -112,7 +106,7 @@ const code = {
             data: {
                 message: "Code updated"
             }
-        }
+        };
 
         return res.status(201).json(data);
     }
