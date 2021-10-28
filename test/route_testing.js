@@ -4,12 +4,12 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { describe, before, after } = require('mocha');
 const server = require('../app.js');
-const fs = require("fs");
-const path = require("path");
-const docs = JSON.parse(fs.readFileSync(
-    path.resolve(__dirname, "../src/setup3.json"),
-    "utf8"
-));
+// const fs = require("fs");
+// const path = require("path");
+// // const docs = JSON.parse(fs.readFileSync(
+// //     path.resolve(__dirname, "../src/setup3.json"),
+// //     "utf8"
+// // ));
 
 chai.should();
 
@@ -54,7 +54,7 @@ describe('Routes', () => {
                     console.log("dropped db");
                     await db.collection.drop();
                 }
-                await db.collection.insertMany(docs);
+                // await db.collection.insertMany(docs);
             })
             .catch(function(err) {
                 console.error(err);
